@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>爱游戏 · 智能游戏探索</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f4f9fc;
+      color: #103b4a;
+      line-height: 1.6;
+      padding: 0 20px;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 40px 0 60px;
+    }
+
+    /* hero 横幅 */
+    .hero {
+      background: linear-gradient(135deg, #0f4f5e 0%, #1d7a8a 60%, #2ea3b5 100%);
+      border-radius: 32px;
+      padding: 48px 36px;
+      margin-bottom: 56px;
+      box-shadow: 0 18px 35px -12px rgba(18, 95, 110, 0.35);
+      color: #f0fcfd;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -20%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-size: 2.7rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 2;
+      word-break: break-word;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 680px;
+      opacity: 0.9;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero .tagline {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(2px);
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* 网格卡片区 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      margin: 48px 0 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 28px 24px 24px;
+      box-shadow: 0 6px 18px rgba(0, 40, 50, 0.06);
+      transition: transform 0.2s ease, box-shadow 0.25s;
+      border: 1px solid #d7e9ef;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px -8px rgba(20, 100, 115, 0.12);
+      border-color: #9bcad6;
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #115f70;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card h3 .num {
+      display: inline-block;
+      background: #e1f0f4;
+      color: #0b586a;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      padding: 0 12px;
+      line-height: 24px;
+      font-weight: 500;
+    }
+
+    .card p {
+      color: #235b68;
+      font-size: 0.96rem;
+    }
+
+    .card .chip {
+      display: inline-block;
+      background: #def1f5;
+      color: #0b5f70;
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border-radius: 30px;
+      margin-top: 14px;
+      font-weight: 500;
+    }
+
+    /* 自然介绍段落 (杂志风格) */
+    .essay {
+      margin: 50px 0 40px;
+    }
+
+    .essay h2 {
+      font-size: 1.7rem;
+      font-weight: 550;
+      color: #0f4e5b;
+      border-left: 6px solid #2ca0b3;
+      padding-left: 18px;
+      margin-bottom: 28px;
+      letter-spacing: -0.01em;
+    }
+
+    .essay .para {
+      background: #ffffffdd;
+      backdrop-filter: blur(2px);
+      padding: 24px 28px;
+      border-radius: 28px;
+      margin-bottom: 26px;
+      border: 1px solid #cfdee4;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.02);
+    }
+
+    .essay .para:last-child {
+      margin-bottom: 0;
+    }
+
+    .essay .para p {
+      margin-bottom: 14px;
+    }
+
+    .essay .para p:last-child {
+      margin-bottom: 0;
+    }
+
+    .essay .para strong {
+      color: #116e82;
+      font-weight: 550;
+    }
+
+    .underline-link {
+      color: #0b6a7c;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      transition: color 0.2s, background 0.2s;
+      font-weight: 500;
+    }
+
+    .underline-link:hover {
+      color: #064857;
+      background: #d7edf2;
+      text-decoration: none;
+      border-radius: 4px;
+      padding: 0 4px;
+    }
+
+    .faq-summary {
+      background: #e7f4f8;
+      border-radius: 28px;
+      padding: 28px 30px;
+      margin: 42px 0 30px;
+      border: 1px solid #bcd2da;
+    }
+
+    .faq-summary h3 {
+      color: #0f5160;
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+    }
+
+    .faq-item {
+      margin-bottom: 12px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .faq-item .q {
+      color: #0b5c6b;
+      font-weight: 550;
+      min-width: 80px;
+    }
+
+    .faq-item .a {
+      color: #1f4d58;
+    }
+
+    .footer-note {
+      margin-top: 40px;
+      padding-top: 28px;
+      border-top: 2px dashed #bdd6de;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      font-size: 0.95rem;
+    }
+
+    .footer-note .visit-hint {
+      background: #d7e9ef;
+      padding: 8px 22px;
+      border-radius: 40px;
+      color: #0b4b57;
+      font-weight: 500;
+    }
+
+    .footer-note a {
+      color: #0b6b7c;
+      text-decoration: none;
+      border-bottom: 1px solid #88b7c4;
+      font-weight: 500;
+    }
+
+    .footer-note a:hover {
+      color: #023f4b;
+      border-bottom-color: #0b4b57;
+    }
+
+    /* 移动端调整 */
+    @media (max-width: 700px) {
+      .hero {
+        padding: 36px 20px;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 0.98rem;
+      }
+      .essay .para {
+        padding: 18px 18px;
+      }
+      .faq-summary {
+        padding: 22px 18px;
+      }
+      .footer-note {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero .tagline {
+        font-size: 0.8rem;
+      }
+    }
+
+    /* 一些视觉装饰 */
+    .accent-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: #2ca0b3;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- 首页横幅 hero -->
+    <div class="hero">
+      <div class="tagline">🎮 智能游戏 · 深度发现</div>
+      <h1>爱游戏：从玩法到内核</h1>
+      <p>站在玩家与开发者之间，用理性视角拆解游戏设计、机制与文化。不只告诉你“好不好玩”，更解析“为什么好玩”。</p>
+    </div>
+
+    <!-- 三段自然介绍 + 网格卡片（杂志专题式） -->
+    <div class="essay">
+      <h2>▎识别一个网站的用途</h2>
+      <div class="para">
+        <p>打开一个陌生的游戏站点，多数人首先会问：这里能提供什么？是评测、资讯、资源，还是社区？<strong>爱游戏</strong>的定位更接近一本“独立游戏杂志”——内容以专题与长文为主，很少追逐短平快新闻，而是回到游戏作品本身。</p>
+        <p>每一篇文章都试图回答一个核心问题：这款游戏在尝试什么？它的设计选择背后有怎样的逻辑？从独立佳作到3A名作，从叙事实验到系统创新，这里不提供速食评分，而是递上一份有重量的分析。</p>
+        <p>如果你厌倦了模板化的“必玩清单”，希望从更扎实的角度理解游戏，那么 <a href="https://main-aigames.com.cn" class="underline-link">爱游戏</a> 的栏目结构会让你很快找到入口。首页按主题归类，每期专题都会围绕一个关键词展开，比如“随机性设计”“非暴力解法”“界面与沉浸”。</p>
+      </div>
+
+      <div class="para">
+        <p>以“爱游戏”命名，背后是一种对媒介的敬意：游戏值得被认真讨论，就像电影、文学一样。站内大量引用开发者访谈、GDC演讲以及学术论文，但行文保持清晰，不堆砌术语。</p>
+        <p>换句话说，无论你是学生、从业者还是资深玩家，都可以在 <a href="https://main-aigames.com.cn" class="underline-link">爱游戏</a> 里找到能激发思考的内容。网站不设付费墙，所有专题均开放阅读，偶尔会有精选的“深度重访”系列，对经典作品进行复盘。</p>
+        <p>同时，每个专题末尾都会附上参考资料与延伸阅读——这种考据习惯，在中文游戏媒体中并不多见。</p>
+      </div>
+    </div>
+
+    <!-- 卡片网格：特点/场景/差异化 -->
+    <div class="card-grid">
+      <div class="card">
+        <h3><span class="num">01</span> 专题式结构</h3>
+        <p>每期围绕一个核心概念（比如“难度设计”“空间叙事”），用3～5篇文章从不同侧面切入。首页会清晰展示当前专题，方便你直接跳转到感兴趣的部分。</p>
+        <span class="chip">📌 每月更新 2～3 期</span>
+      </div>
+      <div class="card">
+        <h3><span class="num">02</span> 跨作品对比</h3>
+        <p>不孤立地评价某款游戏，而是将相似机制、主题或设计思路的作品放在一起对照。例如分析“时间循环”时，会同时讨论《星际拓荒》《遗忘之城》与《12分钟》。</p>
+        <span class="chip">🔍 比较视角</span>
+      </div>
+      <div class="card">
+        <h3><span class="num">03</span> 可操作的洞察</h3>
+        <p>对于开发者或设计爱好者，每篇分析都提炼出可参考的“设计笔记”，例如某种UI反馈如何影响情绪、关卡节奏的节奏模型等。这些内容并非教条，而是提供思路。</p>
+        <span class="chip">⚙️ 实践向</span>
+      </div>
+    </div>
+
+    <!-- FAQ 摘要风格段落（更轻松） -->
+    <div class="faq-summary">
+      <h3>❓ 常见疑问速览</h3>
+      <div class="faq-item">
+        <span class="q">适合谁读？</span>
+        <span class="a">对游戏设计有好奇心的人，不要求专业背景。只要愿意花10～15分钟读一篇文章，就能有所收获。</span>
+      </div>
+      <div class="faq-item">
+        <span class="q">更新频率？</span>
+        <span class="a">每月约8～10篇新文章，专题不定期轮换。首页同时展示进行中的专题与往期精选。</span>
+      </div>
+      <div class="faq-item">
+        <span class="q">是否有社区？</span>
+        <span class="a">目前以单向内容输出为主，每篇文章底部开放评论。未来计划增设专题讨论区。</span>
+      </div>
+    </div>
+
+    <!-- 页尾访问提示 / 链接自然嵌入 -->
+    <div class="footer-note">
+      <div>
+        <span class="accent-dot"></span> 
+        如果你认同“游戏值得被分析”这一立场，可以直接前往 <a href="https://main-aigames.com.cn">爱游戏</a> 浏览当前专题。
+      </div>
+      <div class="visit-hint">
+        📘 点击上方链接 · 查看最新专题
+      </div>
+    </div>
+
+    <!-- 小字版权与说明（简洁） -->
+    <div style="margin-top: 32px; font-size: 0.75rem; color: #698e98; border-top: 1px solid #cde0e6; padding-top: 18px; text-align: center;">
+      <span>内容基于知识共享 · 保持独立思考</span>
+    </div>
+  </div>
+</body>
+</html>
