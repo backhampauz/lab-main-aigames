@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aoke · 从关键词到整体叙事</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(145deg, #fce9d8 0%, #f5d5b3 50%, #ebc49f 100%);
+      min-height: 100vh;
+      padding: 2.4rem 1.2rem;
+      line-height: 1.7;
+      color: #2e241c;
+    }
+
+    .page-card {
+      max-width: 1060px;
+      margin: 0 auto;
+      background: rgba(255, 248, 240, 0.85);
+      backdrop-filter: blur(2px);
+      border-radius: 48px 48px 40px 40px;
+      box-shadow: 0 16px 40px -12px rgba(100, 60, 30, 0.4);
+      overflow: hidden;
+      padding: 2.8rem 2.2rem 3.5rem;
+    }
+
+    /* hero 区域 */
+    .hero {
+      text-align: center;
+      padding: 1.6rem 0 2.2rem;
+    }
+
+    .hero h1 {
+      font-size: 3.4rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: #4a3426;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero .sub {
+      font-size: 1.2rem;
+      color: #735a48;
+      border-top: 2px solid #e7cfb9;
+      border-bottom: 2px solid #e7cfb9;
+      display: inline-block;
+      padding: 0.4rem 1.6rem;
+      margin-top: 0.4rem;
+      background: rgba(235, 196, 159, 0.15);
+      border-radius: 60px;
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: 1.4rem auto 0;
+      font-size: 1.1rem;
+      color: #3d2f25;
+    }
+
+    /* 优势区 —— 三个卡片 */
+    .strengths {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      justify-content: center;
+      margin: 3rem 0 2.6rem;
+    }
+
+    .strength-item {
+      background: white;
+      flex: 1 1 200px;
+      min-width: 180px;
+      border-radius: 30px;
+      padding: 1.8rem 1.4rem;
+      box-shadow: 0 8px 20px -8px rgba(100, 60, 30, 0.18);
+      transition: transform 0.15s ease;
+    }
+
+    .strength-item:hover {
+      transform: translateY(-4px);
+    }
+
+    .strength-item h3 {
+      font-weight: 500;
+      font-size: 1.35rem;
+      color: #5c3f2b;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.3px;
+    }
+
+    .strength-item p {
+      font-size: 0.95rem;
+      color: #4a3a2e;
+    }
+
+    .strength-item .num {
+      display: inline-block;
+      background: #eddacb;
+      color: #4a2f1e;
+      font-weight: 500;
+      border-radius: 40px;
+      padding: 0 0.8rem;
+      font-size: 0.85rem;
+      line-height: 1.8;
+      margin-bottom: 0.6rem;
+    }
+
+    /* 说明区 */
+    .explain {
+      background: white;
+      border-radius: 32px;
+      padding: 2.2rem 2rem;
+      margin: 2.5rem 0 2rem;
+      box-shadow: 0 8px 18px -6px rgba(80, 50, 30, 0.12);
+    }
+
+    .explain h2 {
+      font-size: 1.8rem;
+      font-weight: 450;
+      color: #3f2c1e;
+      border-left: 5px solid #dbb294;
+      padding-left: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .explain p {
+      margin-bottom: 1rem;
+    }
+
+    .explain p:last-child {
+      margin-bottom: 0;
+    }
+
+    .explain strong {
+      color: #6a462c;
+      font-weight: 510;
+    }
+
+    .inline-link {
+      color: #7a4d2c;
+      background: #f1e3d7;
+      padding: 0.1rem 0.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    .inline-link:hover {
+      background: #dbb294;
+      color: #2d1d12;
+    }
+
+    /* FAQ 摘要 */
+    .faq-summary {
+      background: white;
+      border-radius: 32px;
+      padding: 2rem 2rem 1.6rem;
+      margin-top: 1.8rem;
+      box-shadow: 0 8px 18px -6px rgba(80, 50, 30, 0.1);
+    }
+
+    .faq-summary h2 {
+      font-size: 1.6rem;
+      font-weight: 450;
+      color: #3f2c1e;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .faq-summary h2 small {
+      font-size: 1rem;
+      font-weight: 350;
+      color: #785e4b;
+      background: #ece0d5;
+      padding: 0.1rem 0.8rem;
+      border-radius: 30px;
+    }
+
+    .faq-item {
+      padding: 0.8rem 0 0.4rem;
+      border-bottom: 1px solid #edd9ca;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-item .q {
+      font-weight: 500;
+      color: #4d3423;
+      margin-bottom: 0.2rem;
+    }
+
+    .faq-item .a {
+      color: #4a3a2e;
+      font-size: 0.95rem;
+    }
+
+    .faq-more {
+      margin-top: 1.2rem;
+      font-size: 0.95rem;
+      text-align: right;
+    }
+
+    /* 底部链接 */
+    .footer-links {
+      margin-top: 3rem;
+      border-top: 1px solid #e4cfbd;
+      padding-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.2rem;
+      font-size: 0.95rem;
+    }
+
+    .footer-links .col {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.4rem;
+    }
+
+    .footer-links a {
+      color: #5d3f2b;
+      text-decoration: none;
+      border-radius: 40px;
+      padding: 0.2rem 1rem;
+      background: #f2e3d7;
+      transition: background 0.15s;
+    }
+
+    .footer-links a:hover {
+      background: #dbb99b;
+    }
+
+    .footer-note {
+      color: #654d3b;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 1.2rem 0.8rem;
+      }
+      .page-card {
+        padding: 2rem 1.2rem 2.4rem;
+        border-radius: 32px;
+      }
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+      .strengths {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .strength-item {
+        flex: 1 1 auto;
+      }
+      .explain {
+        padding: 1.6rem 1.2rem;
+      }
+      .faq-summary {
+        padding: 1.6rem 1.2rem;
+      }
+      .footer-links {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-card">
+    <!-- hero 区 -->
+    <div class="hero">
+      <h1>aoke</h1>
+      <div class="sub">关键词 · 结构 · 语气</div>
+      <p>一个围绕关键词重新组织内容叙事的页面 —— 从一个小小的词出发，梳理出清晰的介绍、特点、场景和常见疑问。这里展示的是一种「关键词驱动」的整理方式，而不是一个产品。</p>
+    </div>
+
+    <!-- 优势区 三卡片 -->
+    <div class="strengths">
+      <div class="strength-item">
+        <div class="num">01</div>
+        <h3>自然展开</h3>
+        <p>不堆砌术语，从一个点引出完整段落。每个卡片说明一个侧面，读起来像在翻看整理好的笔记。</p>
+      </div>
+      <div class="strength-item">
+        <div class="num">02</div>
+        <h3>节奏稳定</h3>
+        <p>段落长度、标题层级、卡片间隔都保持呼吸感。阅读时不会被突然的大段文字打断，也不会觉得零碎。</p>
+      </div>
+      <div class="strength-item">
+        <div class="num">03</div>
+        <h3>视觉连贯</h3>
+        <p>暖色渐变背景搭配白色卡片，圆角细腻，链接采用按钮感的圆角样式，整体温和、干净、友好。</p>
+      </div>
+    </div>
+
+    <!-- 说明区 -->
+    <div class="explain">
+      <h2>从关键词到内容框架</h2>
+      <p>这个页面是围绕 <strong>aoke</strong> 这个词构建的 —— 你可以把它理解为一个「内容组织练习」的代号。它不代表某个特定产品，而是一种方法：从一个核心词出发，梳理它可能涉及的介绍、优势、常见疑问，再以平实的语言写出来。</p>
+      <p>在 <a href="https://play-okoo.com" class="inline-link">aoke</a> 这个关键词下，我们尝试把「落地页」拆解成几个常见的功能区域：开头概括（hero）、优势要点、详细说明、FAQ 摘要、以及底部链接。每个区域都承担不同的信息角色，合在一起就是一页完整且克制的介绍。</p>
+      <p>页面的语气经过有意控制：避免夸大说法，不使用「第一」「最佳」「颠覆」这类词，而是用「可以」「通常」「比如」来保持客观。同时每段文字尽量不超过四五行，方便快速浏览。</p>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-summary">
+      <h2>FAQ 摘要 <small>常见的问题方向</small></h2>
+      <div class="faq-item">
+        <div class="q">▸ 这个页面是做什么的？</div>
+        <div class="a">这是一个展示「关键词内容化」的静态页面，围绕 aoke 展开介绍、优势、问答等模块，属于落地页风格的内容演示，不涉及具体服务或产品。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q">▸ 关键词 aoke 有什么特殊含义？</div>
+        <div class="a">aoke 可以理解为「内容组织练习」的代号，不是缩写或品牌名称。页面用它作为核心词来搭建信息结构，展示如何从单个词衍生出一段完整介绍。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q">▸ 页面里的链接导向哪里？</div>
+        <div class="a">页面中包含一个指向外部站点的链接（<a href="https://play-okoo.com" class="inline-link">aoke</a>），该链接采用按钮式圆角样式，便于识别。其余链接均用于示例或页面结构。</div>
+      </div>
+      <div class="faq-more">—— 更多细节可以查看页面各部分的内容安排。</div>
+    </div>
+
+    <!-- 底部链接 -->
+    <div class="footer-links">
+      <div class="col">
+        <span class="footer-note">关键词 · 内容结构 · 平实叙述</span>
+      </div>
+      <div class="col">
+        <a href="https://play-okoo.com">aoke</a>
+        <a href="#">主题说明</a>
+        <a href="#">结构示意</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
